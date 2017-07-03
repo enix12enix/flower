@@ -83,6 +83,16 @@
                 </tr>
                 {% end %}
               {% end %}
+
+              <tr>
+                <td>Message</td>
+                <td>
+                  {% if msg %}
+                    <p>{{ msg }}</p>
+                  {% end %}
+                </td>
+              </tr>
+
               </tbody>
             </table>
           </div>

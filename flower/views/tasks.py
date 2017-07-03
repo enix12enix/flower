@@ -22,10 +22,21 @@ class TaskView(BaseHandler):
     def get(self, task_id):
         task = get_task_by_id(self.application.events, task_id)
 
+        # added by shen qi
+        from rediscluster import StrictRedisCluster
+        CELERY_REDIS_CLUSTER_SETTINGS = {'startup_nodes': [
+            {"host": "10.176.63.133", "port": "6379"},
+            {"host": "10.176.63.134", "port": "6379"},
+            {"host": "10.176.63.135", "port": "6379"}
+        ]}
+        r = StrictRedisCluster(startup_nodes=CELERY_REDIS_CLUSTER_SETTINGS['startup_nodes'], decode_responses=True)
+        msg = r.get('msg.' + task_id)
+        # end
+
         if task is None:
             raise web.HTTPError(404, "Unknown task '%s'" % task_id)
 
-        self.render("task.html", task=task)
+        self.render("task.html", task=task, msg=msg)
 
 
 @total_ordering
