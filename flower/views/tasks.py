@@ -30,13 +30,13 @@ class TaskView(BaseHandler):
             {"host": "10.176.63.135", "port": "6379"}
         ]}
         r = StrictRedisCluster(startup_nodes=CELERY_REDIS_CLUSTER_SETTINGS['startup_nodes'], decode_responses=True)
-        msg = r.get('msg.' + task_id)
+        info = r.get('failed.task.info.' + task_id)
         # end
 
         if task is None:
             raise web.HTTPError(404, "Unknown task '%s'" % task_id)
 
-        self.render("task.html", task=task, msg=msg)
+        self.render("task.html", task=task, info=info)
 
 
 @total_ordering

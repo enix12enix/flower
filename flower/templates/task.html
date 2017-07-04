@@ -87,8 +87,8 @@
               <tr>
                 <td>Message</td>
                 <td>
-                  {% if msg %}
-                    <p>{{ msg }}</p>
+                  {% if info and info['msg'] %}
+                    <p>{{ info['msg'] }}</p>
                   {% end %}
                 </td>
               </tr>
