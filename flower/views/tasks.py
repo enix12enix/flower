@@ -14,6 +14,8 @@ from tornado import web
 from ..views import BaseHandler
 from ..utils.tasks import iter_tasks, get_task_by_id, as_dict
 
+from ..config import CELERY_REDIS_CLUSTER_SETTINGS
+
 logger = logging.getLogger(__name__)
 
 
@@ -24,11 +26,6 @@ class TaskView(BaseHandler):
 
         # added by shen qi
         from rediscluster import StrictRedisCluster
-        CELERY_REDIS_CLUSTER_SETTINGS = {'startup_nodes': [
-            {"host": "10.176.63.133", "port": "6379"},
-            {"host": "10.176.63.134", "port": "6379"},
-            {"host": "10.176.63.135", "port": "6379"}
-        ]}
         r = StrictRedisCluster(startup_nodes=CELERY_REDIS_CLUSTER_SETTINGS['startup_nodes'], decode_responses=True)
         info = r.get('failed.task.info.' + task_id)
         # end

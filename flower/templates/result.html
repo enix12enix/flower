@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  {% module Template("navbar.html", active_tab="tasks") %}
+{% end %}
+
+{% block container %}
+  <div id='task-page' class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="row-fluid">
+
+          <div class="span6">
+            <table class="table table-bordered table-striped">
+              <tbody>
+
+                <tr>
+                  <td>node</td>
+                  <td>{{ info['node'] }}</td>
+                </tr>
+
+               <tr>
+                  <td>name</td>
+                  <td>{{ info['name'] }}</td>
+                </tr>
+
+                <tr>
+                  <td>id</td>
+                  <td>{{ result['task_id'] }}</td>
+                </tr>
+
+                <tr>
+                  <td>status</td>
+                  <td>{{ result['status'] }}</td>
+                </tr>
+
+                <tr>
+                  <td>traceback</td>
+                  <td>{{ result['traceback'] }}</td>
+                </tr>
+
+                <tr>
+                  <td>result</td>
+                  <td>{{ result['result'] }}</td>
+                </tr>
+
+                <tr>
+                <td>Message</td>
+                <td>
+                  {% if 'msg' in info %}
+                    {{ info['msg'] }}
+                  {% end %}
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% end %}
